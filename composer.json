@@ -12,5 +12,7 @@
       "email": "d.balassoupramanien@ecole-ipssi.net"
     }
   ],
-  "require": {}
+  "require": {
+    "php": "8.*"
+  }
 }

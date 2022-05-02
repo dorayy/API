@@ -2,7 +2,9 @@
 
 namespace App\Entity;
 
-class Categorie
+use JsonSerializable;
+
+class Categorie implements JsonSerializable
 {
 
     // private readonly int $id
@@ -45,8 +47,11 @@ class Categorie
         return $this;
     }
 
-    public function __toString()
+    public function jsonSerialize(): mixed
     {
-        return $this->name;
+        return [
+            "id" => $this->id,
+            "name" => $this->name
+        ];
     }
 }

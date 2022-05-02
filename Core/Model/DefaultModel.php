@@ -3,13 +3,15 @@
 namespace Core\Model;
 
 use Core\Database\Database;
-
+use Core\Traits\JsonTrait;
 
 class DefaultModel extends Database
 {
 
     protected string $table;
     protected string $entity;
+
+    use JsonTrait;
 
     /**
      * Retourne  un ensembe d'élèments d'une table
@@ -24,9 +26,7 @@ class DefaultModel extends Database
             $qry = $this->pdo->query($stmt, \PDO::FETCH_CLASS, "App\Entity\\$this->entity");
             return $qry->fetchAll();
         } catch (\PDOException $e) {
-            header("content-type:application/json");
-            header("http_response_code", "400");
-            echo json_encode($e->getMessage());
+            $this->jsonResponse($e->getMessage(), 400);
         }
     }
 }
