@@ -2,6 +2,8 @@
 
 namespace Core\Database;
 
+use PDO;
+
 class Database
 {
     protected ?\PDO $pdo;
@@ -10,10 +12,11 @@ class Database
         private string $host = "localhost:3306",
         private string $dbname = "blog",
         private string $user = "root",
-        private string $pass = "root"
+        private string $pass = ""
     ) {
+
         $this->pdo = new \PDO(
-            "mysql:host=$this->host;dbnam$this->dbname",
+            "mysql:host=$this->host;dbname=$this->dbname",
             $this->user,
             $this->pass,
             [

@@ -1,9 +1,12 @@
 <?php
 
+namespace Core\Model;
+
 use Core\Database\Database;
 
 
-class DefaultModel extends Database {
+class DefaultModel extends Database
+{
 
     protected string $table;
     protected string $entity;
@@ -13,18 +16,17 @@ class DefaultModel extends Database {
      * 
      * @return array<int,object>
      */
-    public function findAll(): array{
+    public function findAll(): array
+    {
 
-        try
-        {
+        try {
             $stmt = "SELECT * FROM $this->table";
-            $qry = $this->pdo->query($stmt,\PDO::FETCH_CLASS , "App\Entity\\$this->entity");
+            $qry = $this->pdo->query($stmt, \PDO::FETCH_CLASS, "App\Entity\\$this->entity");
             return $qry->fetchAll();
-        }catch (\PDOException $e){
+        } catch (\PDOException $e) {
             header("content-type:application/json");
-            header("http_response_code" , "400");
+            header("http_response_code", "400");
             echo json_encode($e->getMessage());
         }
-
     }
 }
