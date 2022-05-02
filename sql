@@ -2,7 +2,7 @@
 -- version 4.9.0.1
 -- https://www.phpmyadmin.net/
 --
--- Hôte : localhost:8889
+-- Hôte : localhost:8080
 -- Généré le :  mar. 06 oct. 2020 à 08:05
 -- Version du serveur :  5.7.26
 -- Version de PHP :  7.3.8
