@@ -1,0 +1,16 @@
+{
+  "name": "doray/api",
+  "autoload": {
+    "psr-4": {
+      "App\\": "src/",
+      "Core\\": "Core/"
+    }
+  },
+  "authors": [
+    {
+      "name": "doray",
+      "email": "d.balassoupramanien@ecole-ipssi.net"
+    }
+  ],
+  "require": {}
+}
