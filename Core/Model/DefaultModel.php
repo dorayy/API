@@ -14,7 +14,7 @@ class DefaultModel extends Database
     use JsonTrait;
 
     /**
-     * Retourne  un ensembe d'élèments d'une table
+     * return a table elements
      * 
      * @return array<int,object>
      */
@@ -23,6 +23,23 @@ class DefaultModel extends Database
 
         try {
             $stmt = "SELECT * FROM $this->table";
+            $qry = $this->pdo->query($stmt, \PDO::FETCH_CLASS, "App\Entity\\$this->entity");
+            return $qry->fetchAll();
+        } catch (\PDOException $e) {
+            $this->jsonResponse($e->getMessage(), 400);
+        }
+    }
+
+    /**
+     * return one table element
+     * 
+     * @return array<int,object>
+     */
+    public function find(int $id): array
+    {
+
+        try {
+            $stmt = "SELECT * FROM $this->table WHERE id = $id";
             $qry = $this->pdo->query($stmt, \PDO::FETCH_CLASS, "App\Entity\\$this->entity");
             return $qry->fetchAll();
         } catch (\PDOException $e) {
