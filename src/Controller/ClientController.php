@@ -1,29 +1,30 @@
 <?php
+namespace App\Controller;
 
-namespace App\Controlleur;
-
-use Core\Controller\DefaultControlleur;
+use Core\Controller\DefaultController;
 use App\Model\ClientModel;
 
-class ClientControlleur extends DefaultControlleur
-{
+class ClientController extends DefaultController {
+
     public function __construct()
     {
         $this->model = new ClientModel;
     }
+
     /**
-     * Generation apikey for new client
-     * 
+     * Génère une apikey pour un nouveau client
+     *
      * @param array $client
      * @return void
      */
-    public function save(): void
+    public function save (array $client): void
     {
+        // Génère l'apikey
         $apikey = md5(uniqid());
         $client['apikey'] = $apikey;
-
+        // Stocke le client
         $lastId = $this->model->saveClient($client);
-
+        // Retourne l'apikey
         $this->jsonResponse($this->model->find($lastId));
     }
 }

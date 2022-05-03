@@ -1,50 +1,37 @@
 <?php
-
 namespace App\Model;
 
 use Core\Model\DefaultModel;
 
 /**
- * @method Categorie[] findAll()
- * @method Categorie find(int $id)
- * @method ?int saveCategorie(array $categorie)
+ * @method Article[] findAll()
+ * @method Article find(int $id)
  */
-final class CategorieModel extends DefaultModel
-{
+final class CategorieModel extends DefaultModel{
+
     protected string $table = "categorie";
     protected string $entity = "Categorie";
 
-    /**
-     * Ajoute une catégorie a la database
-     * 
-     * @param array $categorie
-     * 
-     * @return ?int
-     */
-    public function saveCategorie(array $categorie): ?int
+    public function saveCategorie (array $categorie): ?int
     {
         $stmt = "INSERT INTO $this->table (name) VALUES (:name)";
         $prepare = $this->pdo->prepare($stmt);
+        $name = htmlspecialchars($categorie['name']);
+        $prepare->bindParam(":name", $name);
 
-        if ($prepare->execute($categorie)) {
-            // récupéré l'id du dernier ajout a la bd
+        if ($prepare->execute()) {
+            // récupère le dernier id inséré en BDD
             return $this->pdo->lastInsertId($this->table);
         } else {
-            $this->jsonResponse("Erreur lors de l'insersion d'une catégorie", 400);
+            $this->jsonResponse("Erreur lors de l'ajout d'une catégorie", 400);
         }
     }
 
-    /**
-     * Modifie une catégorie a la database
-     * @param array $categorie
-     */
-
-    public function updateCategorie(int $id, array $categorie)
+    public function updateCategorie (int $id, array $categorie)
     {
-        $stmt = "UPDATE $this->table SET name=:name WHERE id=:id;";
+        $stmt = "UPDATE $this->table SET name = :name WHERE id = :id";
         $prepare = $this->pdo->prepare($stmt);
-
-        $name = htmlspecialchars($categorie["name"]);
+        $name = htmlspecialchars($categorie['name']);
         $prepare->bindParam(":name", $name);
         $prepare->bindParam(":id", $id);
 

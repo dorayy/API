@@ -1,31 +1,37 @@
 <?php
-
 namespace App\Model;
 
+use App\Entity\Client;
 use Core\Model\DefaultModel;
 
-final class ClientModel extends DefaultModel
-{
+class ClientModel extends DefaultModel {
+
     protected string $table = "client";
     protected string $entity = "Client";
 
     /**
-     * Ajoute un client a la database
-     * 
+     * Enregistre un nouveau client
+     *
      * @param array $client
-     * 
-     * @return ?int
+     * @return integer|false
      */
-    public function saveclient(array $client): ?int
+    public function saveClient (array $client): int|false
     {
-        $stmt = "INSERT INTO $this->table (company , apikey) VALUES (:company , :apikey)";
+        $stmt= "INSERT INTO $this->table (company, apikey) 
+                VALUES (:company, :apikey)";
         $prepare = $this->pdo->prepare($stmt);
-
         if ($prepare->execute($client)) {
-            // récupéré l'id du dernier ajout a la bd
             return $this->pdo->lastInsertId($this->table);
-        } else {
-            $this->jsonResponse("Erreur lors de l'insersion d'un client", 400);
         }
+        return false;
     }
+
+    public function findByApikey ($apikey): Client|false
+    {
+        $stmt = "SELECT * FROM $this->table WHERE apikey = '$apikey'";
+
+        $query = $this->pdo->query($stmt, \PDO::FETCH_CLASS, "App\Entity\\$this->entity");
+        return $query->fetch();
+    }
+
 }

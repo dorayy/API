@@ -1,45 +1,47 @@
 <?php
-
 namespace App\Entity;
 
 use JsonSerializable;
 
-class Categorie implements JsonSerializable
-{
-    // Uniquement pour php 
-    // readonly met la propriété en lecture uniquement
-    // private readonly int $id
+/**
+ * Entité de la table categorie
+ * 
+ * @see https://www.php.net/manual/fr/class.jsonserializable.php
+ */
+final class Categorie implements JsonSerializable {
+    // Uniquement pour php 8.1
+    // readonly met la propriété en lecture seul
+    // private readonly int $id;
     private int $id;
+
     private string $name;
 
-    /*
+    /**
      * Get the value of id
+     *
+     * @return int
      */
     public function getId(): int
     {
         return $this->id;
     }
 
-    /*
-     * Set the value of id
-     */
-    public function setId(int $id): self
-    {
-        $this->id = $id;
-
-        return $this;
-    }
-
-    /*
+    /**
      * Get the value of name
+     *
+     * @return string
      */
     public function getName(): string
     {
         return $this->name;
     }
 
-    /*
+    /**
      * Set the value of name
+     *
+     * @param string $name
+     *
+     * @return self
      */
     public function setName(string $name): self
     {
@@ -51,8 +53,8 @@ class Categorie implements JsonSerializable
     public function jsonSerialize(): mixed
     {
         return [
-            "id" => $this->getId(),
-            "name" => $this->getName()
+            "id" => $this->id,
+            "name" => $this->name
         ];
     }
 }
