@@ -2,8 +2,6 @@
 
 namespace Core\Database;
 
-use PDO;
-
 class Database
 {
     protected ?\PDO $pdo;
@@ -14,7 +12,6 @@ class Database
         private string $user = "root",
         private string $pass = ""
     ) {
-
         $this->pdo = new \PDO(
             "mysql:host=$this->host;dbname=$this->dbname",
             $this->user,
@@ -24,7 +21,6 @@ class Database
                 \PDO::ATTR_DEFAULT_FETCH_MODE => \PDO::FETCH_OBJ
             ]
         );
-
         $this->pdo->exec("SET NAMES UTF8");
     }
 }

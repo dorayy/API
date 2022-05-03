@@ -1,12 +1,9 @@
 <?php
 
-use App\Controller\ArticleController;
-use App\Controller\CategorieController;
+use Core\Routeur\Routeur;
 
-define('ROOT', dirname(__DIR__));
+define("ROOT", dirname(__DIR__));
 require ROOT . "/vendor/autoload.php";
+require ROOT . "/Core/Routeur/Routeur.php";
 
-#(new CategorieController)->index();
-#(new ArticleController)->index();
-#(new CategorieController)->getOneById(1);
-#(new ArticleController)->getOneById(1);
+Routeur::routeur();

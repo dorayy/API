@@ -6,12 +6,13 @@ use JsonSerializable;
 
 class Categorie implements JsonSerializable
 {
-
+    // Uniquement pour php 
+    // readonly met la propriété en lecture uniquement
     // private readonly int $id
     private int $id;
     private string $name;
 
-    /**
+    /*
      * Get the value of id
      */
     public function getId(): int
@@ -19,7 +20,7 @@ class Categorie implements JsonSerializable
         return $this->id;
     }
 
-    /**
+    /*
      * Set the value of id
      */
     public function setId(int $id): self
@@ -29,7 +30,7 @@ class Categorie implements JsonSerializable
         return $this;
     }
 
-    /**
+    /*
      * Get the value of name
      */
     public function getName(): string
@@ -37,7 +38,7 @@ class Categorie implements JsonSerializable
         return $this->name;
     }
 
-    /**
+    /*
      * Set the value of name
      */
     public function setName(string $name): self
@@ -50,8 +51,8 @@ class Categorie implements JsonSerializable
     public function jsonSerialize(): mixed
     {
         return [
-            "id" => $this->id,
-            "name" => $this->name
+            "id" => $this->getId(),
+            "name" => $this->getName()
         ];
     }
 }
