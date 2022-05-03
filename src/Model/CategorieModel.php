@@ -41,9 +41,10 @@ final class CategorieModel extends DefaultModel
 
     public function updateCategorie(int $id, array $categorie)
     {
-        $stmt = "UPDATE $this->table SET name=:name WHERE id =:id)";
+        $stmt = "UPDATE $this->table SET name=:name WHERE id=:id;";
         $prepare = $this->pdo->prepare($stmt);
-        $name = htmlspecialchars($categorie['name']);
+
+        $name = htmlspecialchars($categorie["name"]);
         $prepare->bindParam(":name", $name);
         $prepare->bindParam(":id", $id);
 

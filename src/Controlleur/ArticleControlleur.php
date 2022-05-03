@@ -44,4 +44,31 @@ class ArticleControlleur extends DefaultControlleur
         $lastId = $this->model->saveArticle($_POST);
         $this->jsonResponse($this->model->find($lastId));
     }
+
+    /**
+     * Mis à jour d'un article
+     * 
+     * @return void
+     */
+
+    public function update(int $id, array $article): void
+    {
+        if ($this->model->updateArticle($id, $article)) {
+            $this->jsonResponse($this->model->find($id), 201);
+        }
+    }
+
+
+    /**
+     * Supprime l'article
+     * 
+     * @return void
+     */
+
+    public function delete(int $id): void
+    {
+        if ($this->model->delete($id)) {
+            $this->jsonResponse("Suppression effectué", 201);
+        }
+    }
 }
