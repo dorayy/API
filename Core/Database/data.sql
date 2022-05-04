@@ -144,9 +144,18 @@ INSERT INTO `categorie` (`id`, `name`) VALUES
 CREATE TABLE `user` (
   `id` int(11) NOT NULL,
   `email` varchar(180) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `roles` json NOT NULL,
+  `roles` json  NULL,
   `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+
+CREATE TABLE blog.client ( 
+  `id` INT NOT NULL AUTO_INCREMENT , 
+  `company` VARCHAR(250) NOT NULL , 
+  `apikey` VARCHAR(250) NOT NULL , 
+  PRIMARY KEY (id)
+  ) ENGINE = InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci; 
 
 --
 -- Index pour les tables déchargées
@@ -194,6 +203,8 @@ ALTER TABLE `categorie`
 ALTER TABLE `user`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
+
+ALTER TABLE `user` ADD `nom` INT(255) NOT NULL AFTER `password`, ADD `prenom` INT(255) NOT NULL AFTER `nom`, ADD `phone` INT(255) NOT NULL AFTER `prenom`;
 --
 -- Contraintes pour les tables déchargées
 --

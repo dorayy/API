@@ -17,7 +17,7 @@ header("Access-Control-Allow-Methods: GET, PATCH, OPTIONS");
 header('Access-Control-Max-Age:1728000');
 
 
-#if (ApiKeySecurity::verifyApiKey()) {
-require ROOT . "/Core/Routeur/Routeur.php";
-Routeur::router();
-#}
+if (ApiKeySecurity::verifyApiKey()) {
+    require ROOT . "/Core/Routeur/Routeur.php";
+    Routeur::router();
+}
