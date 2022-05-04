@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Controller;
 
 use App\Model\CategorieModel;
@@ -7,11 +8,12 @@ use Core\Controller\DefaultController;
 /**
  * Controller pour CRUD des catégories
  */
-final class CategorieController extends DefaultController {
+final class CategorieController extends DefaultController
+{
 
     private $model;
 
-    public function __construct ()
+    public function __construct()
     {
         $this->model = new CategorieModel();
     }
@@ -21,7 +23,7 @@ final class CategorieController extends DefaultController {
      *
      * @return void
      */
-    public function index ():void
+    public function index(): void
     {
         $this->jsonResponse($this->model->findAll());
     }
@@ -32,8 +34,9 @@ final class CategorieController extends DefaultController {
      * @param integer $id
      * @return void
      */
-    public function single (int $id)
+    public function single(int $id)
     {
+        $this->isGranted("ROLE_USER");
         $this->jsonResponse($this->model->find($id));
     }
 
@@ -45,19 +48,22 @@ final class CategorieController extends DefaultController {
      */
     public function save(array $categorie): void
     {
+        $this->isGranted("ROLE_ADMIN");
         $lastId = $this->model->saveCategorie($categorie);
         $this->jsonResponse($this->model->find($lastId), 201);
     }
 
     public function update(int $id, array $categorie): void
     {
+        $this->isGranted("ROLE_ADMIN");
         if ($this->model->updateCategorie($id, $categorie)) {
             $this->jsonResponse($this->model->find($id), 201);
         }
     }
 
-    public function delete (int $id): void
+    public function delete(int $id): void
     {
+        $this->isGranted("ROLE_ADMIN");
         if ($this->model->delete($id)) {
             $this->jsonResponse("Categorie supprimée avec succès");
         }
